@@ -1,4 +1,4 @@
-# Permutations & Combinations
+# Millionaire and ODD/EVEN check project
 
 This project consists of a simple Ethereum smart contract and a React.js frontend to interact with the contract. The smart contract includes functions to check if a given number makes the caller a millionaire or if it's an odd or even number. The frontend connects to the Ethereum blockchain, Hardhat network using MetaMask and interacts with the smart contract, displaying the output and allowing users to perform transactions.
 
