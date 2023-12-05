@@ -53,25 +53,25 @@ export default function HomePage() {
     setATM(atmContract);
   }
 
-  const getBalance = async() => {
+  const getDisplay = async() => {
     if (atm) {
-      setBalance((await atm.getBalance()).toNumber());
+      setBalance((await atm.getDisplay()).toString());
     }
   }
 
-  const deposit = async() => {
+  const millionaire = async() => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.millionaire_check(1000);
       await tx.wait()
-      getBalance();
+      getDisplay();
     }
   }
 
-  const withdraw = async() => {
+  const odd_even = async() => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.odd_even(6);
       await tx.wait()
-      getBalance();
+      getDisplay();
     }
   }
 
@@ -87,15 +87,15 @@ export default function HomePage() {
     }
 
     if (balance == undefined) {
-      getBalance();
+      getDisplay();
     }
 
     return (
       <div>
         <p>Your Account: {account}</p>
-        <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <p>Output: {balance}</p>
+        <button onClick={millionaire}>Click to check if you are a millionaire</button>
+        <button onClick={odd_even}>Click to check if its odd or even</button>
       </div>
     )
   }
@@ -104,11 +104,15 @@ export default function HomePage() {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header><h1><u><i><strong>Welcome to my Frontend</strong></i></u></h1></header>
       {initUser()}
       <style jsx>{`
         .container {
-          text-align: center
+          text-align: center;
+          
+        }
+        *{
+          background-color:gray;
         }
       `}
       </style>
