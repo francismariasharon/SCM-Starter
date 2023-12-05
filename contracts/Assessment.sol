@@ -4,57 +4,36 @@ pragma solidity ^0.8.9;
 //import "hardhat/console.sol";
 
 contract Assessment {
-    address payable public owner;
-    uint256 public balance;
+    
+    uint256 public value;
+    string public display;
 
-    event Deposit(uint256 amount);
-    event Withdraw(uint256 amount);
-
-    constructor(uint initBalance) payable {
-        owner = payable(msg.sender);
-        balance = initBalance;
+    constructor(uint initBalance,string memory _display) payable {
+        value = initBalance;
+        display=_display;
     }
 
-    function getBalance() public view returns(uint256){
-        return balance;
+    function getDisplay() public view returns(string memory, uint){
+        return (display,value);
     }
 
-    function deposit(uint256 _amount) public payable {
-        uint _previousBalance = balance;
-
-        // make sure this is the owner
-        require(msg.sender == owner, "You are not the owner of this account");
-
-        // perform transaction
-        balance += _amount;
-
-        // assert transaction completed successfully
-        assert(balance == _previousBalance + _amount);
-
-        // emit the event
-        emit Deposit(_amount);
-    }
-
-    // custom error
-    error InsufficientBalance(uint256 balance, uint256 withdrawAmount);
-
-    function withdraw(uint256 _withdrawAmount) public {
-        require(msg.sender == owner, "You are not the owner of this account");
-        uint _previousBalance = balance;
-        if (balance < _withdrawAmount) {
-            revert InsufficientBalance({
-                balance: balance,
-                withdrawAmount: _withdrawAmount
-            });
+    function millionaire_check(uint256 status) public payable {
+        value=status;
+        if(status>1000000){
+            display="You are a Millionaire";
         }
+        else{
+            display="You should start working hard ;-;";
+        }
+    }
 
-        // withdraw the given amount
-        balance -= _withdrawAmount;
-
-        // assert the balance is correct
-        assert(balance == (_previousBalance - _withdrawAmount));
-
-        // emit the event
-        emit Withdraw(_withdrawAmount);
+    function odd_even(uint256 number) public {
+        value=number;
+        if(number%2==0){
+            display="This is an even number :)";
+        }
+        else{
+            display="This is an odd number";
+        }
     }
 }
